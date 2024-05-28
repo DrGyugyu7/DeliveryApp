@@ -1,0 +1,3 @@
+C:/Users/Gyugyu/Desktop/DeliveryApp/cmake-build-debug/CMakeFiles/DeliveryApp.dir
+C:/Users/Gyugyu/Desktop/DeliveryApp/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Gyugyu/Desktop/DeliveryApp/cmake-build-debug/CMakeFiles/rebuild_cache.dir
