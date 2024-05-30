@@ -4,16 +4,34 @@ import os
 # Path to the pickle file
 PICKLE_FILE = 'contacts.pkl'
 
+def load_contacts_for_c():
+    contacts = load_contacts()
+    return [(contact["name"], contact["phone"], contact["address"]) for contact in contacts]
+
 def load_contacts():
     if os.path.exists(PICKLE_FILE):
         with open(PICKLE_FILE, 'rb') as f:
             return pickle.load(f)
     return []
 
+def add_contact(name, phone, address):
+    contacts = load_contacts()
+    new_contact = {"name": name, "phone": phone, "address": address}
+    contacts.append(new_contact)
+    save_contacts(contacts)
+
+def delete_contact(name, phone):
+    contacts = load_contacts()
+    contact_to_delete = next((contact for contact in contacts if contact["name"] == name and contact["phone"] == phone), None)
+    if contact_to_delete:
+        contacts.remove(contact_to_delete)
+        save_contacts(contacts)
+    else:
+        print("Contact not found")
+
 def save_contacts(contacts):
     with open(PICKLE_FILE, 'wb') as f:
         pickle.dump(contacts, f)
-    print(f"Contacts have been saved to '{PICKLE_FILE}'.")
 
 def initialize_pickle_with_defaults():
     if not os.path.exists(PICKLE_FILE):
@@ -24,15 +42,3 @@ def initialize_pickle_with_defaults():
             {"name": "Julia", "phone": "010-1234-4321", "address": "145 Anam-ro, Seongbuk-gu, Seoul"}
         ]
         save_contacts(contacts)
-
-def load_contacts_for_c():
-    contacts = load_contacts()
-    return [(contact["name"], contact["phone"], contact["address"]) for contact in contacts]
-
-def main():
-    initialize_pickle_with_defaults()
-    contacts = load_contacts()
-    print(contacts)
-
-if __name__ == "__main__":
-    main()
